@@ -8,10 +8,10 @@ it's educational projects (Text Generator). </p>
 ## Project Description
 </p> The task was to implement a script that generates ten random sentences from a given text file(corpus),
 and each sentence should be:
-<li>1. No less than five words</li>
-<li>2. Starts with a capital <b>letter</b></li>
-<li>3. Ends with a sentence-ending punctuation(?, ., !)</li>
-<li>4. On a separate line.</li> </p>
+<ol>1. No less than five words</ol>
+<ol>2. Starts with a capital <b>letter</b></ol>
+<ol>3. Ends with a sentence-ending punctuation(?, ., !)</ol>
+<ol>4. On a separate line.</ol> </p>
 
 
 ## Solution Approach
