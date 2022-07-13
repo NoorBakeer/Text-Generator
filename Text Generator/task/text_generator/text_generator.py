@@ -4,12 +4,14 @@ from nltk.tokenize import WhitespaceTokenizer
 
 file_name = input()
 tokens = list()
+sentence = list()
+trigrams = dict()
+
 with open(file_name, "r", encoding="utf-8") as file:
     for line in file:
         lst = WhitespaceTokenizer().tokenize(line)
         tokens.extend(lst)
 
-trigrams = dict()
 for x in range(len(tokens) - 2):
     head = tokens[x] + " " + tokens[x + 1]
     tail = tokens[x + 2]
@@ -26,31 +28,14 @@ def get_next_word(previous_word):
     return word[0]
 
 
-sentence = list()
-
-
 def valid_first_word(word):
-    if word[0].isalpha() and word[0].isupper() and not (
-            word.endswith('.') or word.endswith('!') or
-            word.endswith('?')):
+    if word[0].isalpha() and word[0].isupper() and not (word[-1] in ".?!"):
         return True
     return False
-
-
-def valid_sentence():
-    if len(sentence) < 5 and (
-            sentence[-1].endswith('.') or sentence[-1].endswith('!') or
-            sentence[
-                -1].endswith('?')):
-        return False
-    return True
 
 
 def complete_sentence():
-    if sentence[-1].endswith('.') or sentence[-1].endswith('!') or sentence[
-        -1].endswith('?') and len(sentence) >= 5:
-        return True
-    return False
+    return sentence[-1][-1] in "?.!"
 
 
 heads = list(trigrams.keys())
@@ -67,16 +52,14 @@ def generate_sentences():
     i = 0
     while i < 10:
         start_chain()
-        previous_words = sentence[0] + " " + sentence[1]
+        last_words = sentence[0] + " " + sentence[1]
 
         while not complete_sentence():
-            if not valid_sentence():
-                break
-            next_word = get_next_word(previous_words)
-            previous_words = sentence[-1] + " " + next_word
+            next_word = get_next_word(last_words)
+            last_words = sentence[-1] + " " + next_word
             sentence.append(next_word)
 
-        if valid_sentence():
+        if len(sentence) >= 5:
             print(' '.join(sentence))
             i += 1
 
