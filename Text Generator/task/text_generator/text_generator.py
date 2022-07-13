@@ -12,9 +12,9 @@ with open(file_name, "r", encoding="utf-8") as file:
         lst = WhitespaceTokenizer().tokenize(line)
         tokens.extend(lst)
 
-for x in range(len(tokens) - 2):
-    head = tokens[x] + " " + tokens[x + 1]
-    tail = tokens[x + 2]
+for i in range(len(tokens) - 2):
+    head = tokens[i] + " " + tokens[i + 1]
+    tail = tokens[i + 2]
     trigrams.setdefault(head, dict())
     trigrams[head].setdefault(tail,
                               0)  # storing tails along with their frequencies
